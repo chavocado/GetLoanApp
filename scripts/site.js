@@ -89,13 +89,19 @@ function loadApplication() {
     var la = findLoanApplicationByName(dropDown.value);
 
     if (la != undefined) {
-
+        //array was deconstructed to this
         var[
             isEmployed,
             hasKids,
             hasLoans,
             hasCreditcards,
         ] = la.Factors;
+        //object deconstruction
+        /* var {
+            Id,
+            ApplicantName,
+            ApplicantDateOfBirth
+        } = la; */
 
         document.getElementById("inputName").value = la.ApplicantName;
         document.getElementById("inputDoBMonth").value = la.ApplicantDateOfBirth.getMonth() + 1;
