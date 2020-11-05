@@ -111,7 +111,7 @@ function loadApplication() {
 
         var riskLabel = document.getElementById("riskSummary");
         riskLabel.style.display = "block";
-        riskLabel.innerText = generateRickProfile(la); 
+        riskLabel.innerHTML = generateRickProfile(la); 
 
     }
 }
@@ -356,16 +356,25 @@ function generateRickProfile(la) {
         riskProfile = "high";
     }
 
-    var summaryText = String.raw `Dear  ${la.ApplicantName}, 
-    your application for ${"$" + la.LoanAmount}, ${reviewText}. 
-    Your risk profile is ${riskProfile}
-    Your unique application code is \t${createApplicationId()}`;
+    var applicationCode = String.raw `\t${createApplicationId()}`;
+
+    var summaryText = highlightText `Dear  ${la.ApplicantName}, <br>
+    your application for ${"$" + la.LoanAmount}, ${reviewText}. <br>
+    Your risk profile is ${riskProfile}<br>
+    Your unique application code is ${applicationCode}`;
 
     return summaryText;
 }
 
 function highlightText(strings, ...values){
-
+    let str = "";
+    for (let i = 0; i < strings.raw.length; i++) {
+        if (i > 0) {
+            str += `<b>${values[i-1]}</b>`
+        }
+        str += strings[i];
+    }
+    return str
 }
 
 function createApplicationId() {
